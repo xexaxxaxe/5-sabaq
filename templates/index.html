@@ -1,0 +1,8 @@
+<!doctype html><html lang="ru"><meta charset="utf-8"><title>Мои задачи</title>
+<style>body{font-family:Arial;background:#f6f8fc;margin:35px auto;max-width:720px}main{background:white;padding:25px;border-radius:14px}input{padding:10px}button{padding:10px;border:0;border-radius:6px;background:#2667d6;color:white;cursor:pointer}.task{border-bottom:1px solid #ddd;padding:10px 0;display:flex;justify-content:space-between;align-items:center}.task form{display:inline}small{color:#666}</style>
+<main><div style="float:right">{{session.username}} · <a href="/logout">Выход</a></div><h1>Мои задачи</h1>
+<p>Выполнено задач: <b>{{completed}}</b></p>
+<form action="/add" method="post"><input name="title" required placeholder="Новая задача" style="width:75%"><button>Добавить</button></form>
+<form action="/" method="get" style="margin-top:20px"><input name="search" value="{{search}}" placeholder="Поиск по части названия"><button>Найти</button> <a href="/">Сбросить</a></form>
+{% for task in tasks %}<div class="task"><span>{{'✅' if task.done else '⬜'}} {{task.title}}</span><span>{% if not task.done %}<form method="post" action="/done/{{task.id}}"><button>Готово</button></form>{% endif %} <form method="post" action="/delete/{{task.id}}"><button style="background:#d44">Удалить</button></form></span></div>{% else %}<p><small>Задачи не найдены</small></p>{% endfor %}
+</main></html>
